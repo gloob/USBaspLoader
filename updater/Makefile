@@ -7,10 +7,10 @@
 
 include ../Makefile.inc
 
-ifeq ($(SYSTEM), Windows_NT)
+ifeq ($(HOSTOS), Windows_NT)
 	# If windows we will use an script for calculating filesize.
 	FILESIZE = filesize.bat
-else ifeq ($(SYSTEM), Darwin)
+else ifeq ($(HOSTOS), Darwin)
 	# Variable declaration for Mac OS X (BSD stat).
 	FILESIZE = stat -f %z
 else
@@ -93,7 +93,10 @@ updater.hex: updater.elf updater.asm $(DEPENDS)
 	$(ECHO) "."
 
 deepclean: clean
+ifeq ($(HOSTOS), Windows_NT)
+else
 	$(RM) *~
+endif
 
 clean:
 	$(RM) usbasploader.o

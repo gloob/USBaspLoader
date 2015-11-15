@@ -359,27 +359,27 @@ AVRDUDE = $(AVRDUDEBINDIR)avrdude $(PROGRAMMER) -p $(DEVICE)
 # Check operative system.
 # Check if we are on Windows.
 ifeq ($(OS), Windows_NT)
-  SYSTEM := Windows_NT
+  HOSTOS := Windows_NT
   # Check if although we are on a windows machine it's a linux-like
   # environment (Cygwin/Mingw or similar).
   ifeq (marks,$(shell echo "marks"))
-    SYSTEM := Linux
+    HOSTOS := Linux
   endif
 else
   UNAME := $(shell uname -s)
   # Check if it's a OS X system.
   ifeq ($(UNAME), Darwin)
-    SYSTEM := Darwin
+    HOSTOS := Darwin
   # Default as Linux.
   else
-    SYSTEM := Linux
+    HOSTOS := Linux
   endif
 endif
 
 ECHO=@echo
 GCC=@gcc
 MAKE=@make
-ifeq ($(SYSTEM), Windows_NT)
+ifeq ($(HOSTOS), Windows_NT)
   RM=@del /F /Q
 else
   RM=@rm -f
